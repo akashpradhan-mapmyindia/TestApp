@@ -6,14 +6,25 @@
 //
 
 import UIKit
+import MapplsAPICore
+import MapplsMap
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        MapplsAccountManager.setMapSDKKey("597ab3f0f2340fbd862c909abe8f825e")
+        MapplsAccountManager.setRestAPIKey("597ab3f0f2340fbd862c909abe8f825e")
+        MapplsAccountManager.setClientId("96dHZVzsAuvr7OZFsbmRry55zc0GG5AskbGh0uMaQXX4L0n6aSBRrVZu-6FPFe88lE-j8uGu0z7dgwHRvi0MElcWGYKg_DEP")
+        MapplsAccountManager.setClientSecret("lrFxI-iSEg-hoKuzT6KXw14ERlRgVryeiOORbkVl2IMhovfVkgV2tdrxWAuxAlvxqQDNO6ZUNKTmd39UcAx1MHlg3AF6OXAEa4c-3vupaIY=")
+        MapplsMapAuthenticator.sharedManager().initializeSDKSession { isSucess, error in
+            if let error = error {
+                print("error: \(error.localizedDescription)")
+            }
+        }
+
         return true
     }
 
