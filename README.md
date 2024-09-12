@@ -127,26 +127,27 @@ let view = CustomAnnotationView(reuseIdentifier: annotation.title ?? "", image: 
 Here the custom created class `CustomAnnotationView` extends `MGLAnnotationView`. And this this the logic inside the `CustomAnnotationView` class to highlight it by enlarging the marker.
 ```
 override func setSelected(_ selected: Bool, animated: Bool) {
-super.setSelected(selected, animated: animated)
-if selected == true
-{
-    let animation = CABasicAnimation(keyPath: "borderWidth")
-    animation.duration = 0.1
-    layer.add(animation, forKey: "borderWidth")
-    let selectedImg = self.imageView.image
-    let myImage = selectedImg?.cgImage
-    layer.bounds = CGRect(x: 0, y: 0, width: 80, height: 80)
-    layer.contents = myImage
-    layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-    layer.setNeedsLayout()
-}
-else
-{
-     let nonSelectedImg = self.imageView.image
-     let myImage =   nonSelectedImg?.cgImage
-     layer.bounds = CGRect(x: 0, y: 0, width: 40, height: 40)
-     layer.contents = myImage
-     layer.setNeedsLayout()
+   super.setSelected(selected, animated: animated)
+   if selected == true
+   {
+       let animation = CABasicAnimation(keyPath: "borderWidth")
+       animation.duration = 0.1
+       layer.add(animation, forKey: "borderWidth")
+       let selectedImg = self.imageView.image
+       let myImage = selectedImg?.cgImage
+       layer.bounds = CGRect(x: 0, y: 0, width: 80, height: 80)
+       layer.contents = myImage
+       layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+       layer.setNeedsLayout()
+   }
+   else
+   {
+        let nonSelectedImg = self.imageView.image
+        let myImage =   nonSelectedImg?.cgImage
+        layer.bounds = CGRect(x: 0, y: 0, width: 40, height: 40)
+        layer.contents = myImage
+        layer.setNeedsLayout()
+   }
 }
 ```
 
