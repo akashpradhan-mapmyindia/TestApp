@@ -36,18 +36,29 @@ MapplsMapAuthenticator.sharedManager().initializeSDKSession { isSucess, error in
 }
 ```
 
-## How to show a popup on click of Map Marker
-To add a marker, one simple way is to add point annotation like this:
+## Show custom pop up on click of marker with lat lon
+
+We first add the annotation:
 ```
 let point = MGLPointAnnotation()
 point.coordinate = CLLocationCoordinate2D(latitude: 28.550834, longitude: 77.268918)
-point.title = title
-
+point.title = "lat- 28.550834, lon- 77.268918"
 mapView.addAnnotation(point)
 ```
-And then to do something on the click of that marker (in this case show a pop up) we can write any code in the following callback function.
+
+Then we return true frmo this function: 
 ```
-func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation)
+func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool 
+```
+
+To show a custom pop up view on the click of a marker we can create our own class which extends `UIView` and `MGLCalloutView`. And return that view from this delegate:
+```
+func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView?
+```
+
+For example: 
+```
+return CustomCalloutView(representedObject: annotation)
 ```
 
 ## How to show Mappls Map
@@ -68,14 +79,6 @@ mapView.setZoomLevel(15, animated: false)
 ## How to set zoom level and center of Map with Animation
 ```
 mapView.setCenter(CLLocationCoordinate2D(latitude: 28.550834, longitude: 77.268918), zoomLevel: 15, animated: true)
-```
-
-## How to plot a marker on Mappls Map
-```
-let point = MGLPointAnnotation()
-point.coordinate = CLLocationCoordinate2D(latitude: 28.550834, longitude: 77.268918)
-point.title = “Annotation”
-mapView.addAnnotation(point)
 ```
 
 ## Add a custom marker and when we click on the marker then display an InfoWindow/pop-up.
@@ -226,27 +229,6 @@ if let style = mapView.style {
     let shapeCam = mapView.cameraThatFitsShape(polygon, direction: CLLocationDirection(0), edgePadding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
     mapView.setCamera(shapeCam, animated: false)
 }
-```
-
-## How to show a custom popup on click of Map Marker
-
-To show a custom pop up view on the click of a marker we can create our own class which extends `UIView` and `MGLCalloutView`. And return that view from this delegate:
-```
-func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView?
-```
-
-For example: 
-```
-return CustomCalloutView(representedObject: annotation)
-```
-
-And just add an annotation, for example like this
-```
-let point = MGLPointAnnotation()
-point.coordinate = CLLocationCoordinate2D(latitude: 28.550834, longitude: 77.268918)
-point.title = title
-
-mapView.addAnnotation(point)
 ```
 
 ## How to get human readable address information at a location/coordinate
