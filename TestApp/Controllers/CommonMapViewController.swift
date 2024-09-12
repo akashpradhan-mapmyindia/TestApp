@@ -14,7 +14,6 @@ class CommonMapViewController: UIViewController {
     var itemTitleLbl: UILabel!
     var itemTitle: String = ""
     var funcToRunOnMapRender: ()->Void = {}
-    var popUpFuncOnMarkerClick: ()->Void = {}
     var annotationCanShowCallout: Bool = false
     var showCustomMarker: Bool = false
     var showCustomMarkerView: Bool = false
@@ -70,7 +69,7 @@ extension CommonMapViewController: MapplsMapViewDelegate {
     }
     
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-        popUpFuncOnMarkerClick()
+        
     }
     
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {

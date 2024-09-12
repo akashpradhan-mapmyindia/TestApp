@@ -87,25 +87,21 @@ class ViewController: UIViewController {
         let showMapCell = HomeItemCellData(name: Constants.SectionTwo.showMap)
         let zoomCell = HomeItemCellData(name: Constants.SectionTwo.zoomLevelSet)
         let zoomCell2 = HomeItemCellData(name: Constants.SectionTwo.zoomLevelAndCenterWithAnimation)
-        let markerCell = HomeItemCellData(name: Constants.SectionTwo.marker)
         let customMarkerPopupCell = HomeItemCellData(name: Constants.SectionTwo.customMarkerPopupWithInfoWindow)
         let fiftyMarkerCell = HomeItemCellData(name: Constants.SectionTwo.fiftyMarker)
         let polylineCell = HomeItemCellData(name: Constants.SectionTwo.polyline)
         let polylineWithColor = HomeItemCellData(name: Constants.SectionTwo.polylineWithColor)
         let polygonCell = HomeItemCellData(name: Constants.SectionTwo.polygon)
         let polygonCustomColorOpacity = HomeItemCellData(name: Constants.SectionTwo.polygonCustomColorOpacity)
-        let customPopupOnMarkerClick = HomeItemCellData(name: Constants.SectionTwo.showCustomPopOnMarkerClick)
         sec2.cellInfo.append(showMapCell)
         sec2.cellInfo.append(zoomCell)
         sec2.cellInfo.append(zoomCell2)
-        sec2.cellInfo.append(markerCell)
         sec2.cellInfo.append(customMarkerPopupCell)
         sec2.cellInfo.append(fiftyMarkerCell)
         sec2.cellInfo.append(polylineCell)
         sec2.cellInfo.append(polylineWithColor)
         sec2.cellInfo.append(polygonCell)
         sec2.cellInfo.append(polygonCustomColorOpacity)
-        sec2.cellInfo.append(customPopupOnMarkerClick)
 
         tblData.append(sec2)
 
@@ -181,20 +177,14 @@ extension ViewController: UITableViewDelegate {
 
         switch title {
         case Constants.SectionOne.showPopUpOnClick:
-            vc.annotationCanShowCallout = false
             vc.funcToRunOnMapRender = {
+                vc.annotationCanShowCallout = true
+                vc.showCustomCallout = true
                 let point = MGLPointAnnotation()
                 point.coordinate = CLLocationCoordinate2D(latitude: 28.550834, longitude: 77.268918)
-                point.title = title
+                point.title = "lat- 28.550834, lon- 77.268918"
                 
                 vc.mapView.addAnnotation(point)
-            }
-            vc.popUpFuncOnMarkerClick = {
-                let alert = UIAlertController(title: "Alert", message: title, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .cancel)
-                alert.addAction(okAction)
-                vc.dismiss(animated: true)
-                self.present(alert, animated: true)
             }
             
             break
@@ -209,15 +199,6 @@ extension ViewController: UITableViewDelegate {
         case Constants.SectionTwo.zoomLevelAndCenterWithAnimation:
             vc.funcToRunOnMapRender = {
                 vc.mapView.setCenter(CLLocationCoordinate2D(latitude: 28.550834, longitude: 77.268918), zoomLevel: 15, animated: true)
-            }
-            break
-        case Constants.SectionTwo.marker:
-            vc.funcToRunOnMapRender = {
-                let point = MGLPointAnnotation()
-                point.coordinate = CLLocationCoordinate2D(latitude: 28.550834, longitude: 77.268918)
-                point.title = title
-                
-                vc.mapView.addAnnotation(point)
             }
             break
         case Constants.SectionTwo.customMarkerPopupWithInfoWindow:
@@ -319,17 +300,6 @@ extension ViewController: UITableViewDelegate {
                     let shapeCam = vc.mapView.cameraThatFitsShape(polygon, direction: CLLocationDirection(0), edgePadding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
                     vc.mapView.setCamera(shapeCam, animated: false)
                 }
-            }
-            break
-        case Constants.SectionTwo.showCustomPopOnMarkerClick:
-            vc.funcToRunOnMapRender = {
-                vc.annotationCanShowCallout = true
-                vc.showCustomCallout = true
-                let point = MGLPointAnnotation()
-                point.coordinate = CLLocationCoordinate2D(latitude: 28.550834, longitude: 77.268918)
-                point.title = title
-                
-                vc.mapView.addAnnotation(point)
             }
             break
         case Constants.SectionThree.reverseGeocode:
@@ -519,21 +489,19 @@ struct HomeItemCellData {
 
 struct Constants {
     struct SectionOne {
-        static let showPopUpOnClick = "Show pop up on click of marker"
+        static let showPopUpOnClick = "Show custom pop up on click of marker with lat lon"
     }
     
     struct SectionTwo {
         static let showMap = "Show map"
         static let zoomLevelSet = "Map zoom level set to 15"
         static let zoomLevelAndCenterWithAnimation = "Map zoom level and centre with animation"
-        static let marker = "Map with plotted marker"
         static let customMarkerPopupWithInfoWindow = "Custom marker with infoWindow popup when clicked"
         static let fiftyMarker = "50 custom marker annotations, highlighted when clicked"
         static let polyline = "Map with plotted polyline"
         static let polylineWithColor = "Map with plotted polyline with custom color"
         static let polygon = "Map with plotted polygon"
         static let polygonCustomColorOpacity = "Map with plotted polygon with custom colour and opacity"
-        static let showCustomPopOnMarkerClick = "Show custom popup on click of map marker"
     }
     
     struct SectionThree {
