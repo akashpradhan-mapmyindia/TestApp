@@ -1,6 +1,9 @@
 {
   "images" : [
-
+    {
+      "filename" : "location (1).png",
+      "idiom" : "iphone"
+    }
   ],
   "info" : {
     "author" : "xcode",
