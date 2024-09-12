@@ -15,66 +15,64 @@ class ViewController: UIViewController {
     var tableView: UITableView!
     var tblData: [SectionInfo] = []
     
+    let indianPlaces: [String: (Double, Double)] = [
+        "Delhi": (28.6139, 77.2090),
+        "Mumbai": (19.0760, 72.8777),
+        "Bangalore": (12.9716, 77.5946),
+        "Kolkata": (22.5726, 88.3639),
+        "Chennai": (13.0827, 80.2707),
+        "Hyderabad": (17.3850, 78.4867),
+        "Ahmedabad": (23.0225, 72.5714),
+        "Pune": (18.5204, 73.8567),
+        "Jaipur": (26.9124, 75.7873),
+        "Lucknow": (26.8467, 80.9462),
+        "Kanpur": (26.4499, 80.3319),
+        "Nagpur": (21.1458, 79.0882),
+        "Indore": (22.7196, 75.8577),
+        "Bhopal": (23.2599, 77.4126),
+        "Patna": (25.5941, 85.1376),
+        "Vadodara": (22.3072, 73.1812),
+        "Ludhiana": (30.9010, 75.8573),
+        "Agra": (27.1767, 78.0081),
+        "Nashik": (19.9975, 73.7898),
+        "Faridabad": (28.4089, 77.3178),
+        "Meerut": (28.9845, 77.7064),
+        "Rajkot": (22.3039, 70.8022),
+        "Varanasi": (25.3176, 82.9739),
+        "Srinagar": (34.0837, 74.7973),
+        "Aurangabad": (19.8762, 75.3433),
+        "Dhanbad": (23.7957, 86.4304),
+        "Amritsar": (31.6340, 74.8723),
+        "Jodhpur": (26.2389, 73.0243),
+        "Raipur": (21.2514, 81.6296),
+        "Kota": (25.2138, 75.8648),
+        "Guwahati": (26.1445, 91.7362),
+        "Chandigarh": (30.7333, 76.7794),
+        "Mysore": (12.2958, 76.6394),
+        "Ranchi": (23.3441, 85.3096),
+        "Dehradun": (30.3165, 78.0322),
+        "Gwalior": (26.2183, 78.1828),
+        "Vijayawada": (16.5062, 80.6480),
+        "Jalandhar": (31.3260, 75.5762),
+        "Madurai": (9.9252, 78.1198),
+        "Tiruchirappalli": (10.7905, 78.7047),
+        "Udaipur": (24.5854, 73.7125),
+        "Salem": (11.6643, 78.1460),
+        "Ajmer": (26.4499, 74.6399),
+        "Guntur": (16.3067, 80.4365),
+        "Solapur": (17.6599, 75.9064),
+        "Thiruvananthapuram": (8.5241, 76.9366),
+        "Warangal": (17.9784, 79.6010),
+        "Hubli": (15.3647, 75.1240),
+        "Shimla": (31.1048, 77.1734)
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpTblData()
         setUpUI()
     }
-    
-    let coordinates: [CLLocationCoordinate2D] = [
-        CLLocationCoordinate2D(latitude: 28.549900, longitude: 77.268000),
-        CLLocationCoordinate2D(latitude: 28.549800, longitude: 77.267850),
-        CLLocationCoordinate2D(latitude: 28.550000, longitude: 77.267750),
-        CLLocationCoordinate2D(latitude: 28.549750, longitude: 77.268050),
-        CLLocationCoordinate2D(latitude: 28.549950, longitude: 77.267650),
-        CLLocationCoordinate2D(latitude: 28.549700, longitude: 77.268150),
-        CLLocationCoordinate2D(latitude: 28.550050, longitude: 77.267550),
-        CLLocationCoordinate2D(latitude: 28.549650, longitude: 77.268250),
-        CLLocationCoordinate2D(latitude: 28.550150, longitude: 77.267450),
-        CLLocationCoordinate2D(latitude: 28.549600, longitude: 77.268350),
-        CLLocationCoordinate2D(latitude: 28.550250, longitude: 77.267350),
-        CLLocationCoordinate2D(latitude: 28.549550, longitude: 77.268450),
-        CLLocationCoordinate2D(latitude: 28.550350, longitude: 77.267250),
-        CLLocationCoordinate2D(latitude: 28.549500, longitude: 77.268550),
-        CLLocationCoordinate2D(latitude: 28.550450, longitude: 77.267150),
-        CLLocationCoordinate2D(latitude: 28.549450, longitude: 77.268650),
-        CLLocationCoordinate2D(latitude: 28.550550, longitude: 77.267050),
-        CLLocationCoordinate2D(latitude: 28.549400, longitude: 77.268750),
-        CLLocationCoordinate2D(latitude: 28.550650, longitude: 77.266950),
-        CLLocationCoordinate2D(latitude: 28.549350, longitude: 77.268850),
-        CLLocationCoordinate2D(latitude: 28.550750, longitude: 77.266850),
-        CLLocationCoordinate2D(latitude: 28.549300, longitude: 77.268950),
-        CLLocationCoordinate2D(latitude: 28.550850, longitude: 77.266750),
-        CLLocationCoordinate2D(latitude: 28.549250, longitude: 77.269050),
-        CLLocationCoordinate2D(latitude: 28.550950, longitude: 77.266650),
-        CLLocationCoordinate2D(latitude: 28.549200, longitude: 77.269150),
-        CLLocationCoordinate2D(latitude: 28.551050, longitude: 77.266550),
-        CLLocationCoordinate2D(latitude: 28.549150, longitude: 77.269250),
-        CLLocationCoordinate2D(latitude: 28.551150, longitude: 77.266450),
-        CLLocationCoordinate2D(latitude: 28.549100, longitude: 77.269350),
-        CLLocationCoordinate2D(latitude: 28.551250, longitude: 77.266350),
-        CLLocationCoordinate2D(latitude: 28.549050, longitude: 77.269450),
-        CLLocationCoordinate2D(latitude: 28.551350, longitude: 77.266250),
-        CLLocationCoordinate2D(latitude: 28.549000, longitude: 77.269550),
-        CLLocationCoordinate2D(latitude: 28.551450, longitude: 77.266150),
-        CLLocationCoordinate2D(latitude: 28.548950, longitude: 77.269650),
-        CLLocationCoordinate2D(latitude: 28.551550, longitude: 77.266050),
-        CLLocationCoordinate2D(latitude: 28.548900, longitude: 77.269750),
-        CLLocationCoordinate2D(latitude: 28.551650, longitude: 77.265950),
-        CLLocationCoordinate2D(latitude: 28.548850, longitude: 77.269850),
-        CLLocationCoordinate2D(latitude: 28.551750, longitude: 77.265850),
-        CLLocationCoordinate2D(latitude: 28.548800, longitude: 77.269950),
-        CLLocationCoordinate2D(latitude: 28.551850, longitude: 77.265750),
-        CLLocationCoordinate2D(latitude: 28.548750, longitude: 77.270050),
-        CLLocationCoordinate2D(latitude: 28.551950, longitude: 77.265650),
-        CLLocationCoordinate2D(latitude: 28.548700, longitude: 77.270150),
-        CLLocationCoordinate2D(latitude: 28.552050, longitude: 77.265550),
-        CLLocationCoordinate2D(latitude: 28.548650, longitude: 77.270250),
-        CLLocationCoordinate2D(latitude: 28.552150, longitude: 77.265450),
-        CLLocationCoordinate2D(latitude: 28.548600, longitude: 77.270350)
-    ]
-
     
     func setUpTblData() {
         var sec1 = SectionInfo(sectionTitle: "Section 1", cellInfo: [])
@@ -182,7 +180,7 @@ extension ViewController: UITableViewDelegate {
                 vc.showCustomCallout = true
                 let point = MGLPointAnnotation()
                 point.coordinate = CLLocationCoordinate2D(latitude: 28.550834, longitude: 77.268918)
-                point.title = "lat- 28.550834, lon- 77.268918"
+                point.title = "Mapmyindia HO, New Delhi"
                 
                 vc.mapView.addAnnotation(point)
             }
@@ -207,7 +205,7 @@ extension ViewController: UITableViewDelegate {
             vc.funcToRunOnMapRender = {
                 let point = MGLPointAnnotation()
                 point.coordinate = CLLocationCoordinate2D(latitude: 28.550834, longitude: 77.268918)
-                point.title = title
+                point.title = "Mapmyindia HO, New Delhi"
                 
                 vc.mapView.addAnnotation(point)
             }
@@ -218,10 +216,10 @@ extension ViewController: UITableViewDelegate {
                 vc.annotationCanShowCallout = true
                 vc.showCustomMarkerView = true
                 
-                self.coordinates.forEach { location in
+                self.indianPlaces.forEach { (key: String, value: (Double, Double)) in
                     let point = MGLPointAnnotation()
-                    point.coordinate = location
-                    point.title = "\(location.latitude), \(location.longitude)"
+                    point.coordinate = CLLocationCoordinate2D(latitude: value.0, longitude: value.1)
+                    point.title = key
                     markers.append(point)
                 }
                 vc.mapView.addAnnotations(markers)
